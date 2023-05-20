@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="styles/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="script/main.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/personnages/Little Johnny.webp">
+    <title>Hot chicken</title>
+</head>
+
+<body x-data="app">
+    <div x-show="!isGameVisible" class="black-block"></div>
+    
+    <header>
+
+        <!-- Menu d'accueil -->
+        <div x-show="isMenuVisible" class="menu">
+
+            <video x-show="isVideoVisible" class="bg-video" autoplay muted loop src="video/background.mp4"></video>
+
+            <h1 x-text="titleText"></h1>
+
+
+            <button class="button-menu" x-on:click="toggleJeu"><img class="img-jouer" src="images/play.png" alt="">
+                <p x-text="playButtonText"></p>
+            </button>
+
+            <button class="button-menu" x-on:click="toggleOption(true)"><img class="img-parametre"
+                    src="images/cog_wheel.png" alt="paramètre">
+                <p>Paramètres</p>
+            </button>
+            <button class="button-menu" x-on:click="togglePropos(true)"><img class="img-propos"
+                    src="images/À propos.png" alt="proposnous">
+                <p>À propos de nous</p>
+            </button>
+            <button class="button-menu" x-on:click="toggleTuto(true)"><img class="img-tuto" src="images/livre.png" alt="Tutoriel">
+                <p>Comment Jouer</p>
+            </button>
+        </div>
+        <!-- Menu de jeu inactif-->
+        <template x-if="!firstMenu">
+            <img class="menu-img" x-bind:src="backgroundMenu">
+        </template>
+        <template x-if="isGameVisible && !isMenuVisible">
+            <button x-on:click="toggleJeu" class="echap"> <img src="images/échap.png" alt="setting">
+                <p>menu</p>
+            </button>
+            
+        </template>
+
+    </header>
+    <main onload="startMusic()">
+
+        <!-- paramètre -->
+        <section x-show="isOptionShown" class="parametre">
+            <div>
+                <button class="back-button" x-show="isOptionButtonShown"
+                x-on:click="toggleOption(false)">&lt;---</button>  
+                <!-- AUDIO -->
+                <button class="para" x-on:click="muteMusic()">Musique</button>
+                <audio id="bgAudio" x-bind:src="audioSource" autoplay loop></audio>
+                <input type="range" class="slider" id="volume-slider" max="100" x-model="volume" x-on:input="setVolume(volume)">
+            </div>
+        </section>
+
+        <!-- À propos de nous-->
+        <section x-show="isProposShown" class="proposnous">
+            <article>
+                <button class="back-button" x-show="isProposButtonShown" x-on:click="togglePropos(false)">&lt;---</button>
+
+                <h2>À propos de nous</h2>
+                <div class="propos">
+                    <div class=" carte-propos">
+                        <img class="propos-img" src="images/Sam.png" alt="img-samuel">
+                        <h3>Samuel Vary</h3>
+                        <p>Modélisateur 3D des personnages</p>
+                    </div>
+                    <div class="carte-propos">
+                        <img class="propos-img" src="images/Vandal.png" alt="img-alexis">
+                        <h3>Alexis Vandal</h3>
+                        <p>Musicien et Auteur</p>
+                    </div>
+                    <div class="carte-propos">
+                        <img class="propos-img" src="images/Felix.png" alt="img-félix">
+                        <h3>Félix Côté</h3>
+                        <p>Programmeur et modélisateur 3D</p>
+                    </div>
+                    <div class="carte-propos">
+                        <img class="propos-img" src="images/Jey.png" alt="img-jérémy">
+                        <h3>Jérémy Lord</h3>
+                        <p>Programmeur et modélisateur 3D</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Comment jouer -->
+        <section x-show="isTutoShown" class="tutoriel">
+            <button class="back-button" x-show="isTutoButtonShown" x-on:click="toggleTuto(false)">&lt;---</button>
+            <img class="jeu" src="images/comment_jouer.webp" alt="image tutoriel">
+        </section>
+
+        <!-- JEU -->
+        <article x-show="isGameVisible" class="jeu">
+
+           <!--CHANGER VAGON--> 
+
+            <img x-show="isMinimapVisible" class="minimap" x-bind:src="minimap" alt="minimap">
+
+            
+
+            <!--DIALOGUE--> 
+            <div x-show="isDialogueVisible">
+                <img class="dialogue-perso" x-bind:src="suspectImage" alt="personnage dialogue">
+
+                <img class="dialogue-perso-principale" src="images/personnages/Pablo.webp" alt="personnage dialogue">
+                
+                <div class="txtbox" id="textebox" x-text="dialogueText"></div>
+                
+                <div class="background-dialogue"></div>
+                <template x-if="isDialogueVisible">
+                    <div>
+                        <div x-show="dialogueText.startsWith('Pablo')" class="pablo-speaking"></div>
+                        <div x-show="!dialogueText.startsWith('Pablo')" class="other-speaking"></div>
+                    </div>
+                </template>
+                
+
+                <button x-on:click="scrollDialogue" x-text="buttonText">Suivant</button>
+                
+            </div>
+
+            <!--JOURNAL DE BORD-->
+
+            <div class="journal" x-show="isJournalVisible">
+                <p x-text="dialogue1Journal"></p>
+                <p x-text="dialogue2Journal"></p>
+                <p x-text="dialogue3Journal"></p>
+                <p x-text="dialogue4Journal"></p>
+            </div>
+            <button x-show="isJournalBtnVisible" class="journal-btn" x-on:click="toggleJournal" x-text="journalBtnText"></button>
+
+            <!--VOTER-->
+                <button x-show="isVoterBtnVisible" class="voter-btn" x-on:click="votePage">Voter</button>
+            <article class="boite-vote" x-show="isVoteShown">
+
+                <h2>Qui est le coupable?</h2>
+                <div class="vote">
+                    <div class="carte-vote" x-on:click="vote(1)">
+                        <img class="vote-img" x-bind:src="suspect1" alt="img-suspect1">
+                        <p x-text="suspect1Nom"></p>
+                    </div>
+                    <div class="carte-vote" x-on:click="vote(2)">
+                        <img class="vote-img" x-bind:src="suspect2" alt="img-suspect2">
+                        <p x-text="suspect2Nom"></p>
+                    </div>
+                    <div class="carte-vote" x-on:click="vote(3)">
+                        <img class="vote-img" x-bind:src="suspect3" alt="img-suspect3">
+                        <p x-text="suspect3Nom"></p>
+                    </div>
+                    <div class="carte-vote" x-on:click="vote(4)">
+                        <img class="vote-img" x-bind:src="suspect4" alt="img-suspect4">
+                        <p x-text="suspect4Nom"></p>
+                    </div>
+                </div>
+            </article>
+
+            
+
+            <img class="check" x-show="isCheckVisible" src="images/check.webp" alt="check">
+            <img class="x" x-show="isXVisible" src="images/x.webp" alt="check">
+            <img class="personnage-fin" x-show="isFluffyVisible" src="images/personnages/Chicken D. Fluffy.webp" alt="Fluffy avec son chapeau">
+            <img class="personnage-fin" x-show="isIsagiVisible" src="images/personnages/isagi-ballon.webp" alt="Isagi">
+            <img class="personnage-fin" x-show="is50YenVisible" src="images/personnages/50 Yen.webp" alt="50 Yen avec sa chaine">
+
+            <!-- VAGON 4 -->
+            <img x-show="isVagon4Visible" class="game-img" src="images/4.webp" alt="wagon 4">
+
+            <video class="video-game" id="video" src="video/4-3.mp4" x-on:ended="vagon3()"></video>
+            
+            <section x-show="isVagon4Visible && isVagon4PersonnageVisible">
+                <div class="perso1" x-on:click="dialogue(0)"></div>
+                <div class="perso2" x-on:click="dialogue(1)"></div>
+                <div class="perso3" x-on:click="dialogue(2)"></div>
+                <div class="perso4" x-on:click="dialogue(3)"></div>
+                <div class="perso5" x-on:click="dialogue(4)"></div>
+            </section>
+
+            <!-- VAGON 3 -->
+            <img x-show="isVagon3Visible" class="game-img" src="images/3.webp" alt="wagon 3">
+            
+            <video class="video-game" id="video2" src="video/3-2.mp4" x-on:ended="vagon2()"></video>
+            
+            <section x-show="isVagon3Visible && isVagon3PersonnageVisible">
+                <div class="perso6" x-on:click="dialogue(5)"></div>
+                <div class="perso7" x-on:click="dialogue(6)"></div>
+                <div class="perso8" x-on:click="dialogue(7)"></div>
+                <div class="perso9" x-on:click="dialogue(8)"></div>
+                <div class="perso10" x-on:click="dialogue(9)"></div>
+            </section>
+
+            <!-- VAGON 2 -->
+            <img x-show="isVagon2Visible" class="game-img" src="images/2.webp" alt="wagon 2">
+            
+            <video class="video-game" id="video3" src="video/2-1.mp4" x-on:ended="vagon1()"></video>
+            
+            <section x-show="isVagon2Visible && isVagon2PersonnageVisible">
+                <div class="perso11" x-on:click="dialogue(10)"></div>
+                <div class="perso12" x-on:click="dialogue(11)"></div>
+                <div class="perso13" x-on:click="dialogue(12)"></div>
+                <div class="perso14" x-on:click="dialogue(13)"></div>
+                <div class="perso15" x-on:click="dialogue(14)"></div>
+            </section>
+
+            <!-- VAGON 1 -->
+            <img x-show="isVagon1Visible" class="game-img" src="images/1.webp" alt="wagon 1">
+            
+            <section x-show="isVagon1Visible">
+                <div class="sandwich" x-on:click="videofin()"></div>
+            </section>
+            <video class="video-game" id="video4" src="video/animation_fin.mp4"></video>
+            
+        </article>
+
+
+
+
+    </main>
+    <footer x-show="isMenuVisible">
+        &copy; Jérémy Lord, Félix Côté, Samuel Vary, Alexis Vandal
+
+    </footer>
+
+</body>
+
+</html>

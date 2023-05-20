@@ -1,0 +1,27 @@
+@font-face {
+  font-family: pixel;
+  src: url(../font/DePixelBreit.ttf);
+}
+
+* {
+  font-family: pixel;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  z-index: -10;
+  overflow: hidden;
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  right: 0;
+  left: 0;
+  text-align: center;
+  color: white;
+}

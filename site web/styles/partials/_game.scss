@@ -1,0 +1,341 @@
+.jeu {
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -o-object-fit: contain;
+  object-fit: contain;
+  z-index: -1;
+}
+
+.game-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-game {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+#video4{
+  z-index: 999;
+}
+
+.minimap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 15%;
+  z-index: 2;
+}
+
+.txtbox {
+  position: absolute;
+  border-style: solid;
+  box-shadow: var(--box-shadow);
+  top: 53%;
+  left: 30%;
+  width: 40%;
+  height: 35%;
+  padding: 10px;
+  font-size: 1.5em;
+  background-color: #fff;
+  color: #000;
+  z-index: 9;
+  animation-duration: 0.5s;
+  animation-name: classicfade;
+}
+
+.voter-btn{
+  position: absolute;
+  bottom: 3%;
+  right: 1.5%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border: 5px solid rgb(87, 86, 86);
+  background-color: rgb(199, 199, 199);
+  width: 200px;
+  height: 70px;
+  font-size: 1.5em;
+  z-index: 999;
+  &:hover {
+    filter: invert(1);
+    cursor: pointer;
+    transition: 500ms;
+  }
+}
+
+
+@keyframes classicfade{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 100%;
+  }
+}
+@keyframes fadebg{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 60%;
+  }
+}
+
+.background-dialogue {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  backdrop-filter: blur(5px);
+  opacity: 60%;
+  z-index: 2;
+  animation-duration: 0.5s;
+  animation-name: fadebg;
+}
+
+.dialogue-perso {
+  position: absolute;
+  top: 40%;
+  left: 13.5%;
+  width: 16.25%;
+  z-index: 8;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.pablo-speaking{
+  position: absolute;
+  top: 40%;
+  right: 12.7%;
+  width: 13.25%;
+  height: 30%;
+  filter: blur(50px);
+  background-color: hsla(56, 100%, 75%, 0.3);
+  border-radius: 100px;
+  z-index: 3;
+  animation-duration: 0.5s;
+  animation-name: classicfade;
+}
+.other-speaking{
+  position: absolute;
+  top: 42%;
+  left: 13.5%;
+  width: 16.25%;
+  height: 30%;
+  filter: blur(50px);
+  background-color: hsla(56, 100%, 75%, 0.3);
+  border-radius: 100px;
+  z-index: 3;
+  animation-duration: 0.5s;
+  animation-name: classicfade;
+ 
+}
+.dialogue-perso-principale {
+  position: absolute;
+  top: 40%;
+  right: 11.2%;
+  width: 16.25%;
+  z-index: 8;
+}
+
+.journal {
+  position: absolute;
+  width: 90%;
+  height: 74%;
+  top: 15%;
+  left: 3%;
+  padding: 10px;
+  border: 5px solid rgb(87, 86, 86);
+  background-color: rgba(199, 199, 199, 0.95);
+  z-index: 998;
+  animation-duration: 0.25s;
+  animation-name: classicfade;
+
+  p {
+    padding: 10px;
+  }
+}
+
+.journal-btn {
+  position: absolute;
+  top: 3%;
+  right: 1.5%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  border: 5px solid rgb(87, 86, 86);
+  background-color: rgb(199, 199, 199);
+  width: 200px;
+  height: 70px;
+  font-size: 1em;
+  z-index: 999;
+  &:hover {
+    filter: invert(1);
+    cursor: pointer;
+    transition: 500ms;
+  }
+}
+
+.bg-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -3;
+  filter: blur(10px);
+}
+
+.jeu {
+  div {
+    button {
+      position: absolute;
+      top: 80%;
+      left: 74%;
+      margin: auto;
+      border: 5px solid rgb(87, 86, 86);
+      background-color: rgb(199, 199, 199);
+      width: 170px;
+      height: 70px;
+      font-size: 1.8em;
+      z-index: 999;
+      &:hover {
+        filter: invert(1);
+        cursor: pointer;
+        transition: 500ms;
+      }
+    }
+  }
+}
+
+.personnage-fin {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 30%;
+}
+
+.x {
+  position: absolute;
+  top: 15%;
+  left: 30%;
+  width: 40%;
+}
+.check {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  width: 30%;
+
+}
+
+
+@media screen and (max-height: 768px) {
+  .jeu {
+    div {
+      button {
+        top: 80%;
+        left: 77%;
+      }
+    }
+    .txtbox {
+      font-size: 1.2em;
+    }
+  }
+  .dialogue-perso-principale {
+    right: 9%;
+  }
+  .pablo-speaking{
+    height: 35%;
+
+  }
+  .other-speaking{
+    height: 40%;
+  }
+  
+}
+
+@media screen and (max-height: 500px) {
+  .jeu {
+    div {
+      button {
+        top: 85%;
+        left: 77%;
+        width: 100px;
+        height: 40px;
+        font-size: 1em;
+      }
+    }
+    .txtbox {
+      font-size: 0.9em;
+    }
+    .journal {
+      font-size: 0.8em;
+    }
+    .journal-btn {
+      width: 170px;
+      height: 40px;
+      font-size: 0.9em;
+    }
+  }
+  .dialogue-perso-principale {
+    right: 5%;
+  }
+  .pablo-speaking{
+    height: 45%;
+    background-color: hsla(56, 100%, 75%, 0.7);
+  }
+  .pablo-speaking{
+    right: 8%;
+    height: 30%;
+  }
+  .other-speaking{
+    width: 16.25%;
+    height: 30%;
+    background-color: hsla(56, 100%, 75%, 0.7);
+  }
+  .slider{
+    display: none;
+  }
+}
+@media screen and (max-height: 336px) {
+  .txtbox {
+    font-size: 0.7em !important;
+  }
+  .journal {
+    font-size: 0.7em !important;
+  }
+  .pablo-speaking{
+    right: 5%;
+    width: 20%;
+    height: 30%;
+    filter: blur(25px);
+    background-color: hsla(56, 100%, 75%, 0.5);
+
+  }
+  .other-speaking{
+
+    width: 20%;
+    height: 30%;
+    filter: blur(25px);
+    background-color: hsla(56, 100%, 75%, 0.5);
+  }
+}
